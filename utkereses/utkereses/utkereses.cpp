@@ -10,10 +10,12 @@
 // The program is for adjacency matrix representation of the graph
 
 #include <stdio.h>
+#include <string>
 #include <limits.h>
 #include <iostream>
 #include <conio.h>
 #include <ctime>
+using namespace std;
 
 // Number of vertices in the graph
 #define V 7
@@ -34,45 +36,80 @@ int minDistance(int dist[], bool sptSet[])
 
 int drawGraph(int graph[V][V])
 {
+	string abVector = "   ";
+	char abValue = ' ';
+	string bcVector = "   ";
+	char bcValue = ' ';
+	string efVector = "   ";
+	char efValue = ' ';
+	string fgVector = "   ";
+	char fgValue = ' ';
+	string aeVector = " ";
+	char aeValue = ' ';
+	string bfVector = " ";
+	char bfValue = ' ';
+	string cgVector = " ";
+	char cgValue = ' ';
+	string adVector = " ";
+	char adValue = ' ';
+	string deVector = " ";
+	char deValue = ' ';
 	// 0 - A, 1 - B, 2 - C, 3 - D, 4 - E, 5 - F, 6 - G
 	printf("\nGraph:\n");
-
-	printf("\t\t    %d     %d \n", graph[0][1], graph[1][2]);
-	printf("\t\t A --- B --- C \n");
-	printf("\t     %d  /|     |     | \n", graph[0][3]);
-	printf("\t       / |     |     | \n");
-	printf("\t      /  |     |     | \n");
-	printf("\t     D   | %d   | %d   | %d\n", graph[0][4], graph[1][5], graph[2][6]);
-	printf("\t      \\  |     |     | \n");
-	printf("\t       \\ |     |     | \n");
-	printf("\t     %d  \\|     |     | \n", graph[3][4]);
-	printf("\t\t E --- F --- G \n");
-	printf("\t\t    %d    %d \n", graph[4][5], graph[5][6]);
+	if (graph[0][1] != 0) {
+        abVector = "---";
+	    abValue = '0' + graph[0][1];
+	}
+	if (graph[1][2] != 0) {
+		bcVector = "---";
+		bcValue = '0' + graph[1][2];
+	}
+	if (graph[4][5] != 0) {
+		efVector = "---";
+		efValue = '0' + graph[4][5];
+	}
+	if (graph[5][6] != 0) {
+		fgVector = "---";
+		fgValue = '0' + graph[5][6];
+	}
+	if (graph[0][4] != 0) {
+		aeVector = "|";
+		aeValue = '0' + graph[0][4];
+	}
+	if (graph[1][5] != 0) {
+		bfVector = "|";
+		bfValue = '0' + graph[1][5];
+	}
+	if (graph[2][6] != 0) {
+		cgVector = "|";
+		cgValue = '0' + graph[2][6];
+	}
+	if (graph[0][3] != 0) {
+		adVector = "/";
+		adValue = '0' + graph[0][3];
+	}
+	if (graph[3][4] != 0) {
+		deVector = "\\";
+		deValue = '0' + graph[3][4];
+	}
+	printf("\t\t    %c     %c \n", abValue, bcValue);
+	printf("\t\t A %s B %s C \n", abVector.c_str(), bcVector.c_str());
+	printf("\t     %c  %s%s     %s     %s \n", adValue, adVector.c_str(), aeVector.c_str(), bfVector.c_str(), cgVector.c_str());
+	printf("\t       %s %s     %s     %s \n", adVector.c_str(), aeVector.c_str(), bfVector.c_str(), cgVector.c_str());
+	printf("\t      %s  %s     %s     %s \n", adVector.c_str(), aeVector.c_str(), bfVector.c_str(), cgVector.c_str());
+	printf("\t     D   %s %c   %s %c   %s %c\n", aeVector.c_str(), aeValue, bfVector.c_str(), bfValue, cgVector.c_str(), cgValue);
+	printf("\t      %s  %s     %s     %s \n", deVector.c_str(), aeVector.c_str(), bfVector.c_str(), cgVector.c_str());
+	printf("\t       %s %s     %s     %s \n", deVector.c_str(), aeVector.c_str(), bfVector.c_str(), cgVector.c_str());
+	printf("\t     %c  %s%s     %s     %s \n", deValue, deVector.c_str(), aeVector.c_str(), bfVector.c_str(), cgVector.c_str());
+	printf("\t\t E %s F %s G \n", efVector.c_str(), fgVector.c_str());
+	printf("\t\t    %c     %c \n", efValue, fgValue);
 	return true;
 }
 
 // A utility function to print the constructed distance array
 int printSolution(int dist[], char letters[], int graphResult[V][V])
 {
-	/*
-	int graphResult[V][V] = {
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 }
-	};
 
-	printf("\n");
-	for (int v = 0; v < (V * 3) - 2; v++){
-		printf("%d - %d  =  %d\n", route[v], route[v + 1], route[v + 2]);
-		graphResult[route[v]][route[v + 1]] = route[v + 2];
-		v = v + 2;
-
-	}
-	*/
 	drawGraph(graphResult);
 
 	printf("\nVertex   Distance from Source\n");
@@ -96,7 +133,6 @@ int** flipGraph(int graph[V][V])
 		table[i] = graph[i];
 	}
 
-	graph;
 	// 0 - A, 1 - B, 2 - C, 3 - D, 4 - E
 	for (int v = 0; v < V - 1; v++) {
 		for (int i = v + 1; i < V; i++) {
@@ -114,7 +150,7 @@ int** flipGraph(int graph[V][V])
 
 // Funtion that implements Dijkstra's single source shortest path algorithm
 // for a graph represented using adjacency matrix representation
-void dijkstra(int graph[V][V], int src, char letters[V], int route[V * 2])
+void dijkstra(int graph[V][V], int src, char letters[V])
 {
 	int graphResult[V][V] = {
 		{ 0, 0, 0, 0, 0, 0, 0 },
@@ -125,7 +161,6 @@ void dijkstra(int graph[V][V], int src, char letters[V], int route[V * 2])
 		{ 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 }
 	};
-	int routePosition = 0;
 	int dist[V];     // The output array.  dist[i] will hold the shortest
 	// distance from src to i
 
@@ -170,11 +205,57 @@ void dijkstra(int graph[V][V], int src, char letters[V], int route[V * 2])
 	printSolution(dist, letters, graphResult);
 }
 
+class Graph {
+public:
+	int graph[V][V];   // Length of a box
+
+	int initGraph(void) {
+		printf("\n  Hi \n ");
+		return 1;
+	}
+	int copyGraph(int paramGraph[V][V]) {
+		for (int v = 0; v < V; v++) {
+			for (int i = 0; i < V; i++) {
+				graph[v][i] = paramGraph[v][i];
+				}
+			}
+		printf("\n  set \n ");
+		return 1;
+	}
+
+	void printGraph() {
+		for (int v = 0; v < V; v++) {
+			for (int i = 0; i < V; i++) {
+				printf("\n  %d ", graph[v][i]);
+
+			}
+		}
+		printf("\n  printed \n ");
+	}
+};
+
 // driver program to test above function
 int main()
 {
 	srand(time(0));
 	/* Let us create the example graph discussed above */
+	int testGraph[V][V] = {
+		{ 0, 1, 0, 1, 1, 0, 0 },
+		{ 0, 0, 1, 0, 0, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1 },
+		{ 0, 0, 0, 0, 1, 0, 0 },
+		{ 0, 0, 0, 0, 0, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 1 },
+		{ 0, 0, 0, 0, 0, 0, 0 }
+	};
+
+	Graph graph1;
+	graph1.initGraph();
+	graph1.copyGraph(testGraph);
+	graph1.printGraph();
+
+
+
 	int graph[V][V] = {
 		{ 0, 1, 0, 1, 1, 0, 0 },
 		{ 0, 0, 1, 0, 0, 1, 0 },
@@ -194,11 +275,7 @@ int main()
 		{ 0, 0, 0, 0, 0, 0, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 }
 	};
-	int route[V * 3] = {
-		0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0
-	};
+
 	char letters[V] = {
 		'A', 'B', 'C', 'D', 'E', 'F', 'G'
 	};
@@ -206,10 +283,9 @@ int main()
 	drawGraph(graph);
 	flipGraph(graph);
 	drawGraph(graph);
-
 	std::cin.ignore();
 
-	dijkstra(graph, 0, letters, route);
+	dijkstra(graph, 0, letters);
 
 	std::cin.ignore();
 	return 0;
